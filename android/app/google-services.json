@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "325338741652",
+    "project_id": "cryptoalert-5b475",
+    "storage_bucket": "cryptoalert-5b475.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325338741652:android:e007835d14f80904182d81",
+        "android_client_info": {
+          "package_name": "com.example.crypto_notifier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325338741652-21epdnjbh1k3nano90ac8i4u6lh5c2r5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAH199gxdbql9veow_i1u8uFTA9gsSXA0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325338741652-21epdnjbh1k3nano90ac8i4u6lh5c2r5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

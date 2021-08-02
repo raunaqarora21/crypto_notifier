@@ -24,7 +24,7 @@ class CoinInfoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    temp = double.parse(priceUsd) * 78.0;
+    temp = double.parse(priceUsd) * 74.40;
     //p = temp.toStringAsFixed(2);
 
     price = NumberFormat.simpleCurrency(locale: 'en_IN').format(temp);
