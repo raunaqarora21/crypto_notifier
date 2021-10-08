@@ -62,7 +62,7 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
       ),
       backgroundColor: Color(0xFF222531),
       body: _loading
-          ? Center(child: CircularProgressIndicator(color: Colors.white))
+          ? Center(child: CircularProgressIndicator())
           : ListView(
               shrinkWrap: false,
               primary: true,

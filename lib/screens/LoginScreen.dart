@@ -1,4 +1,3 @@
-import 'file:///C:/Users/This%20PC/Desktop/Flutter/user_app/lib/components/RoundButton.dart';
 import 'package:crypto_notifier/components/progressDialog.dart';
 import 'package:crypto_notifier/constants.dart';
 import 'package:crypto_notifier/helper/subScribed_coins.dart';
@@ -83,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: true,
                     decoration: InputDecoration(
                       prefixIcon:
-                          Icon(Icons.password_rounded, color: Colors.white),
+                          Icon(Icons.drag_indicator_sharp, color: Colors.white),
                       labelText: "Password",
                       labelStyle: TextStyle(
                         color: Colors.white,

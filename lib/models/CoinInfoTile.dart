@@ -40,6 +40,7 @@ class CoinInfoTile extends StatelessWidget {
                 builder: (context) => SubscribeScreen(
                       name: name,
                       coinId: id,
+                      price: price,
                     )));
       },
       child: Padding(

@@ -115,7 +115,7 @@ class RegisterationScreen extends StatelessWidget {
                     obscureText: true,
                     decoration: InputDecoration(
                       prefixIcon: Icon(
-                        Icons.password_rounded,
+                        Icons.drag_indicator_sharp,
                         color: Colors.white,
                       ),
                       labelText: "Password",
