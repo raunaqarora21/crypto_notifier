@@ -73,39 +73,43 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        color: Colors.white,
+                        // color: Colors.white,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                                decoration: BoxDecoration(
-                                    //color: Color(0xFF222531),
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10.0),
-                                child: Text(
-                                  "Market Cap",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )),
+                                // decoration: BoxDecoration(
+                                //     //color: Color(0xFF222531),
+                                //     borderRadius: BorderRadius.circular(5.0)),
+                                // padding: EdgeInsets.symmetric(
+                                //     horizontal: 15.0, vertical: 10.0),
+                                // child: Text(
+                                //   "Market Cap",
+                                //   style: TextStyle(fontWeight: FontWeight.bold),
+                                // )
+                                ),
+                            Container(
+                                // decoration: BoxDecoration(
+                                //     //color: Color(0xFF222531),
+                                //     borderRadius: BorderRadius.circular(5.0)),
+                                // padding: EdgeInsets.symmetric(
+                                //     horizontal: 15.0, vertical: 10.0),
+                                // child: Text(
+                                //   "Price",
+                                //   style: TextStyle(fontWeight: FontWeight.bold),
+                                // )
+                                ),
                             Container(
                                 decoration: BoxDecoration(
-                                    //color: Color(0xFF222531),
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10.0),
-                                child: Text(
-                                  "Price",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )),
-                            Container(
-                                decoration: BoxDecoration(
-                                    //color: Color(0xFF222531),
-                                    borderRadius: BorderRadius.circular(5.0)),
+                                    color: Colors.blueGrey,
+                                    borderRadius: BorderRadius.circular(15.0)),
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15.0, vertical: 10.0),
                                 child: Text(
                                   "Change%",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
                                 )),
                           ],
                         ),

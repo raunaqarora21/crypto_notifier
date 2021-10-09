@@ -59,51 +59,60 @@ class CoinInfoTile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CircleAvatar(
-                    child: Image.asset("images/$id.png"),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        symbol,
-                        style: TextStyle(color: Colors.grey, fontSize: 10.0),
-                      ),
-                    ],
-                  ),
-                  Text(
-                    price,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
+                  Container(
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          child: Image.asset("images/$id.png"),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              symbol,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              name,
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 10.0),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
-                    height: 40.0,
-                    width: 80.0,
-                    decoration: BoxDecoration(
-                      color: temp1 > 0 ? Colors.green : Colors.red,
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    margin: EdgeInsets.only(left: 5),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        temp1 > 0
-                            ? Icon(
-                                Icons.arrow_upward,
-                                color: Colors.white,
-                              )
-                            : Icon(
-                                Icons.arrow_downward,
-                                color: Colors.white,
-                              ),
                         Text(
-                          "$changeP%",
-                          style: TextStyle(color: Colors.white),
-                        )
+                          price,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(color: Colors.white, fontSize: 15.0),
+                        ),
+                        Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                !changeP.contains("-")
+                                    ? "+$changeP%"
+                                    : "$changeP%",
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                    color:
+                                        temp1 > 0 ? Colors.red : Colors.green,
+                                    fontSize: 12.0),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
