@@ -99,18 +99,59 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
                                 //   style: TextStyle(fontWeight: FontWeight.bold),
                                 // )
                                 ),
-                            Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10.0),
-                                child: Text(
-                                  "Change%",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )),
+                            GestureDetector(
+                              onTap: () {
+                                showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (context) => CupertinoActionSheet(
+                                          title: Text("Sort By"),
+                                          actions: [
+                                            CupertinoActionSheetAction(
+                                              child: Text("Market Cap"),
+                                              onPressed: () {
+                                                setState(() {
+                                                  coinInfo.sort((a, b) =>
+                                                      a.marketCapUsd.compareTo(
+                                                          b.marketCapUsd));
+                                                });
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            CupertinoActionSheetAction(
+                                              child: Text("Price"),
+                                              onPressed: () {
+                                                setState(() {
+                                                  coinInfo.sort((a, b) => a
+                                                      .priceUsd
+                                                      .compareTo(b.priceUsd));
+                                                });
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                          cancelButton:
+                                              CupertinoActionSheetAction(
+                                            child: Text("Cancel"),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ));
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius:
+                                          BorderRadius.circular(15.0)),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 10.0),
+                                  child: Text(
+                                    "Change%",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )),
+                            ),
                           ],
                         ),
                       ),

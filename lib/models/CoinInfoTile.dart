@@ -41,6 +41,8 @@ class CoinInfoTile extends StatelessWidget {
                       name: name,
                       coinId: id,
                       price: price,
+                      changePercent: changeP,
+                      symbol: symbol,
                     )));
       },
       child: Padding(
