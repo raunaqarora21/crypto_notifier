@@ -223,59 +223,6 @@ class _DropDownWidgetState extends State<DropDownWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // showModalBottomSheet(
-        //     shape: RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.only(
-        //         topLeft: Radius.circular(20),
-        //         topRight: Radius.circular(20),
-        //       ),
-        //     ),
-        //     backgroundColor: Color(0xFF3C424E),
-        //     context: context,
-        //     builder: (context) {
-        //       return Container(
-        //         height: MediaQuery.of(context).size.height / 2,
-        //         child: ListView.builder(
-        //           shrinkWrap: true,
-        //           itemCount: widget.currencies.length,
-        //           itemBuilder: (context, index) {
-        //             return ListTile(
-        //               leading: CircleAvatar(
-        //                 radius: 13,
-        //                 child: Image.asset(
-        //                     "images/${widget.currencies[index].id}.png"),
-        //               ),
-        //               title: Container(
-        //                 child: Row(
-        //                   children: [
-        //                     Text(widget.currencies[index].symbol,
-        //                         style: TextStyle(
-        //                           color: Colors.white,
-        //                           fontSize: 16,
-        //                         )),
-        //                     SizedBox(
-        //                       width: 8.0,
-        //                     ),
-        //                     Text("(" + widget.currencies[index].name + ")",
-        //                         style: TextStyle(
-        //                           color: Colors.grey,
-        //                           fontSize: 10,
-        //                         )),
-        //                   ],
-        //                 ),
-        //               ),
-        //               onTap: () {
-        //                 setState(() {
-        //                   value = widget.currencies[index].symbol;
-        //                   widget.symbol = value;
-        //                   id = widget.currencies[index].id;
-        //                 });
-        //                 Navigator.pop(context);
-        //               },
-        //             );
-        //           },
-        //         ),
-        //       );
         //     });
       },
       child: Container(

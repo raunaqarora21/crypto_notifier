@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:crypto_notifier/components/RoundButton.dart';
+import 'package:crypto_notifier/logics/priceAlertLogic.dart';
 
 import 'package:crypto_notifier/models/CoinInfoTile.dart';
 
@@ -65,7 +66,10 @@ class _MainScreenState extends State<MainScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PriceAlert(),
+                    builder: (context) =>
+                        ChangeNotifierProvider<PriceAlertLogic>(
+                            create: (context) => PriceAlertLogic(),
+                            child: PriceAlert()),
                   ),
                 );
               },
@@ -106,7 +110,7 @@ class _MainScreenState extends State<MainScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: RoundButton(
                             title: 'View All CryptoCurrencies',
-                            color: Colors.yellow,
+                            color: Colors.amber,
                             onPress: () {
                               Navigator.push(
                                   context,
@@ -124,17 +128,6 @@ class _MainScreenState extends State<MainScreen> {
                         onTap: () {
                           Provider.of<AppData>(context, listen: false)
                               .loadData();
-                          Workmanager().registerOneOffTask(
-                            "1",
-                            "simplePeriodic1HourTask",
-                            inputData: <String, dynamic>{
-                              'int': 1,
-                              'bool': true,
-                              'double': 1.0,
-                              'string': 'string',
-                              'array': [1, 2, 3],
-                            },
-                          );
                         },
                         child: Container(
                           padding: EdgeInsets.all(10.0),

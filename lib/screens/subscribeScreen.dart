@@ -43,11 +43,15 @@ class _SubscribeScreenState extends State<SubscribeScreen> {
   List<Article> articles;
   @override
   void initState() {
-    getChartsData();
-    getNews();
+    functionCall();
     _trackballBehavior = TrackballBehavior(
         activationMode: ActivationMode.singleTap, enable: true);
     super.initState();
+  }
+
+  functionCall() async {
+    await getChartsData();
+    await getNews();
   }
 
   getChartsData() async {

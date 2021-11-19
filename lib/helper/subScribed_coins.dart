@@ -33,19 +33,12 @@ class AppData with ChangeNotifier {
   }
 
   getData() async {
-    // log("Get Data");
-    // print(subList);
-
-    // usersRef.child(uid).set({"subscriptions": subList});
-
-    // log("Called");
-    // log(uid.toString());
     temp = [];
     final User user = _firebaseAuth.currentUser;
     final uid = user.uid;
     log(uid.toString());
     try {
-      log("Called here");
+      // log("Called here");
       await usersRef.child(uid).child("subscriptions").once().then(
           (DataSnapshot snapshot) => snapshot.value.toString() != "null"
               ? temp.addAll(snapshot.value)
@@ -55,8 +48,8 @@ class AppData with ChangeNotifier {
     }
     subList = List<String>.from(temp);
 
-    log("Here");
-    log(subList.toString());
+    // log("Here");
+    // log(subList.toString());
     if (subList != null && subList.isNotEmpty && subList != []) {
       subList.forEach((element) async {
         print(element);

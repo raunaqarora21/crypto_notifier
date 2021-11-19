@@ -224,7 +224,8 @@ class RegisterationScreen extends StatelessWidget {
         "name": nameTextEditingController.text.trim(),
         "email": emailTextEditingController.text.trim(),
         "phone": phoneTextEditingController.text.trim(),
-        "subscriptions": {}
+        "subscriptions": {},
+        "priceAlerts": {}
       };
 
       print(userDataMap);

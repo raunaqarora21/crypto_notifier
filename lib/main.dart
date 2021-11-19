@@ -15,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  Workmanager().registerPeriodicTask("2", "simplePeriodicTask");
+  // Workmanager().registerPeriodicTask("2", "simplePeriodicTask");
   runApp(CryptoNotifier());
 }
 
