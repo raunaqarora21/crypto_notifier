@@ -1,5 +1,5 @@
-import 'package:crypto_notifier/screens/mainScreen.dart';
-import 'package:crypto_notifier/screens/subscribeScreen.dart';
+import 'package:crypto_notifier/screens/mainApp/mainScreen.dart';
+import 'package:crypto_notifier/screens/mainApp/subscribe/subscribeScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:core';
@@ -65,7 +65,12 @@ class CoinInfoTile extends StatelessWidget {
                     child: Row(
                       children: [
                         CircleAvatar(
-                          child: Image.asset("images/$id.png"),
+                          child: Image.asset(
+                            "images/$id.png",
+                            errorBuilder: (context, url, error) {
+                              return Icon(FontAwesomeIcons.coins);
+                            },
+                          ),
                         ),
                         SizedBox(
                           width: 10,

@@ -7,10 +7,11 @@ import 'package:crypto_notifier/models/InfoTile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:workmanager/workmanager.dart';
 
 class PriceAlertLogic extends ChangeNotifier {
   bool _isLoading = false;
@@ -32,7 +33,7 @@ class PriceAlertLogic extends ChangeNotifier {
   List<String> coinNames = [];
   PriceAlertLogic() {
     _isLoading = true;
-    dev.log("Price ALert Callde");
+
     notifyListeners();
     _getPriceAlerts();
   }
@@ -78,27 +79,32 @@ class PriceAlertLogic extends ChangeNotifier {
           var low = p.low != null ? double.parse(p.low.replaceAll('%', '')) : 0;
           var high =
               p.high != null ? double.parse(p.high.replaceAll('%', '')) : 0;
-          var percent = double.parse(i.changePercent.replaceAll('%', ''));
+          var percent = i.changePercent != null
+              ? double.parse(i.changePercent.replaceAll('%', ''))
+              : null;
+          if (percent != null) {
+            // dev.log(percent.toString());
+            // dev.log(high.toString());
+            // dev.log(i.name);
+            if (percent > high) {
+              await showNotification(i.name, "It's time to sell.", '');
+            } else if (percent < low) {
+              await showNotification(i.name, "It's time to buy more.", '');
+            } else if (percent > low && percent < high) {}
+            // dev.log(i.name);
 
-          if (percent > high) {
-            await showNotification(i.name, "It's time to sell.", '$percent%');
-          } else if (percent < low) {
-            await showNotification(
-                i.name, "It's time to buy more.", '$percent%');
-          } else if (percent > low && percent < high) {}
-          // dev.log(i.name);
+            _priceAlertTiles.add(PriceAlertTileInfo(
+              name: i.name,
+              priceUsd: i.priceUsd,
+              changePercent: i.changePercent,
+              low: p.low,
+              high: p.high,
+              id: i.id,
+              symbol: i.symbol,
+            ));
 
-          _priceAlertTiles.add(PriceAlertTileInfo(
-            name: i.name,
-            priceUsd: i.priceUsd,
-            changePercent: i.changePercent,
-            low: p.low,
-            high: p.high,
-            id: i.id,
-            symbol: i.symbol,
-          ));
-
-          // log(i.changePercent);
+            // log(i.changePercent);
+          }
         }
       }
     }
@@ -132,26 +138,27 @@ class PriceAlertLogic extends ChangeNotifier {
           var high =
               p.high != null ? double.parse(p.high.replaceAll('%', '')) : 0;
           var percent = double.parse(i.changePercent.replaceAll('%', ''));
+          if (percent != null) {
+            if (percent > high) {
+              await showNotification(i.name, "It's time to sell.", '$percent%');
+            } else if (percent < low) {
+              await showNotification(
+                  i.name, "It's time to buy more.", '$percent%');
+            } else if (percent > low && percent < high) {}
+            dev.log(i.name);
 
-          if (percent > high) {
-            await showNotification(i.name, "It's time to sell.", '$percent%');
-          } else if (percent < low) {
-            await showNotification(
-                i.name, "It's time to buy more.", '$percent%');
-          } else if (percent > low && percent < high) {}
-          dev.log(i.name);
+            _priceAlertTiles.add(PriceAlertTileInfo(
+              name: i.name,
+              priceUsd: i.priceUsd,
+              changePercent: i.changePercent,
+              low: p.low,
+              high: p.high,
+              id: i.id,
+              symbol: i.symbol,
+            ));
 
-          _priceAlertTiles.add(PriceAlertTileInfo(
-            name: i.name,
-            priceUsd: i.priceUsd,
-            changePercent: i.changePercent,
-            low: p.low,
-            high: p.high,
-            id: i.id,
-            symbol: i.symbol,
-          ));
-
-          // log(i.changePercent);
+            // log(i.changePercent);
+          }
         }
       }
     }
@@ -237,8 +244,8 @@ class PriceAlertTileInfo {
       this.low});
 }
 
-Widget PriceAlertTile(
-    PriceAlertLogic priceAlertLogic, PriceAlertTileInfo info) {
+Widget PriceAlertTile(PriceAlertLogic priceAlertLogic, PriceAlertTileInfo info,
+    BuildContext context) {
   var temp = double.parse(info.priceUsd) * 74.34;
   //p = temp.toStringAsFixed(2);
 
@@ -249,8 +256,31 @@ Widget PriceAlertTile(
 
   return GestureDetector(
     onLongPress: () {
-      //remove this from database
-      priceAlertLogic.removePriceAlert(info.name);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Delete Alert"),
+              content: Text("Are you sure you want to delete this alert?"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Yes"),
+                  onPressed: () {
+                    priceAlertLogic.removePriceAlert(info.name);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text("No"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
+
+      // priceAlertLogic.removePriceAlert(info.name);
     },
     child: Container(
       decoration: BoxDecoration(
@@ -271,7 +301,12 @@ Widget PriceAlertTile(
                 child: Row(
                   children: [
                     CircleAvatar(
-                      child: Image.asset("images/${info.id}.png"),
+                      child: Image.asset(
+                        "images/${info.id}.png",
+                        errorBuilder: (context, e, stackTrace) {
+                          return Icon(FontAwesomeIcons.coins);
+                        },
+                      ),
                     ),
                     SizedBox(
                       width: 10,
@@ -339,7 +374,7 @@ Widget PriceAlertTile(
                           info.high == null
                               ? Container()
                               : Text(
-                                  info.high,
+                                  info.high + "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15.0),
@@ -359,7 +394,7 @@ Widget PriceAlertTile(
                           info.low == null
                               ? Container()
                               : Text(
-                                  info.low,
+                                  info.low + "%",
                                   textAlign: TextAlign.end,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 15.0),

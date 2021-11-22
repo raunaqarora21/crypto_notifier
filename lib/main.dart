@@ -1,15 +1,18 @@
+import 'dart:async';
+
 import 'package:crypto_notifier/helper/subScribed_coins.dart';
-import 'package:crypto_notifier/screens/allCryptoScreen.dart';
-import 'package:crypto_notifier/screens/welcome_screen.dart';
+
+import 'package:crypto_notifier/screens/login/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:workmanager/workmanager.dart';
-import 'screens/LoginScreen.dart';
+import 'screens/login/LoginScreen.dart';
 
-import 'screens/RegistrationScreen.dart';
+import 'screens/login/RegistrationScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +82,7 @@ class CryptoNotifier extends StatelessWidget {
 
           scaffoldBackgroundColor: Color(0xFF1F2630),
         ),
-        home: WelcomeScreen(),
+        home: SplashScreen(),
         routes: {
           'LoginScreen': (context) => LoginScreen(),
           'RegistrationScreen': (context) => RegisterationScreen(),
@@ -88,33 +91,60 @@ class CryptoNotifier extends StatelessWidget {
       ),
     );
   }
-  //add splash screen
+}
+//how to give circle border to image
 
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-  //function to add splash screen
-  // void _showSplashScreen() {
-  //   showGeneralDialog(
-  //     barrierColor: Colors.black.withOpacity(0.5),
-  //     transitionBuilder: (context, a1, a2, widget) {
-  //       final curvedValue = Curves.easeInOutBack.transform(a1.value) - 1.0;
-  //       return Transform(
-  //         transform: Matrix4.translationValues(0.0, curvedValue * 200, 0.0),
-  //         child: Opacity(
-  //           opacity: a1.value,
-  //           child: SplashScreen(),
-  //         ),
-  //       );
-  //     },
-  //     transitionDuration: Duration(milliseconds: 500),
-  //     barrierDismissible: true,
-  //     barrierLabel: '',
-  //     context: context,
-  //     pageBuilder: (context, animation1, animation2) {
-  //       return Container();
-  //     },
-  //   );
-  // }
+class _SplashScreenState extends State<SplashScreen> {
+  void initState() {
+    super.initState();
+    Timer(
+        Duration(seconds: 3),
+        () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => WelcomeScreen())));
+  }
 
-
-
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Color(0xFF1F2630),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 100.0,
+                width: 100.0,
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('images/download.png'),
+                  backgroundColor: Color(0xFFA93BF5),
+                  minRadius: 50.0,
+                  maxRadius: 150.0,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Crypto Notifier',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

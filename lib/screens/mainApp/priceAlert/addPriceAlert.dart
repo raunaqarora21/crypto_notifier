@@ -4,6 +4,7 @@ import 'package:crypto_notifier/components/RoundButton.dart';
 import 'package:crypto_notifier/logics/priceAlertLogic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AddPriceAlert extends StatefulWidget {
   PriceAlertLogic priceAlertLogic;
@@ -56,7 +57,11 @@ class _AddPriceAlertState extends State<AddPriceAlert> {
                                 leading: CircleAvatar(
                                   radius: 13,
                                   child: Image.asset(
-                                      "images/${widget.priceAlertLogic.coinInfo[index].id}.png"),
+                                    "images/${widget.priceAlertLogic.coinInfo[index].id}.png",
+                                    errorBuilder: (context, e, stackTrace) {
+                                      return Icon(FontAwesomeIcons.coins);
+                                    },
+                                  ),
                                 ),
                                 title: Container(
                                   child: Row(
@@ -93,7 +98,12 @@ class _AddPriceAlertState extends State<AddPriceAlert> {
                                         .priceAlertLogic.coinInfo[index].id;
                                     icon = CircleAvatar(
                                       radius: 20,
-                                      child: Image.asset("images/${id}.png"),
+                                      child: Image.asset(
+                                        "images/${id}.png",
+                                        errorBuilder: (context, e, stackTrace) {
+                                          return Icon(FontAwesomeIcons.coins);
+                                        },
+                                      ),
                                     );
                                   });
                                   Navigator.pop(context);
@@ -162,7 +172,8 @@ class _AddPriceAlertState extends State<AddPriceAlert> {
                 ),
                 padding: EdgeInsets.all(10),
                 child: TextField(
-                  keyboardType: TextInputType.number,
+                  keyboardType: TextInputType.numberWithOptions(
+                      decimal: true, signed: true),
                   decoration: InputDecoration(
                     labelText: 'High',
                     labelStyle: TextStyle(color: Colors.white),
@@ -185,14 +196,62 @@ class _AddPriceAlertState extends State<AddPriceAlert> {
                 title: 'Add Price Alert',
                 onPress: () {
                   log("Clicked..");
-                  widget.priceAlertLogic
-                      .addPriceAlert(selectedCurrency, low, high);
-                  Navigator.pop(context);
+                  if (check(high, low, selectedCurrency, context)) {
+                    widget.priceAlertLogic
+                        .addPriceAlert(selectedCurrency, high, low);
+                    Navigator.pop(context);
+                  }
                 },
                 color: Colors.amber,
               )
             ],
           ),
         ));
+  }
+}
+
+// ignore: missing_return
+bool check(high, low, String selectedCurrency, BuildContext context) {
+  if (high == null ||
+      low == null ||
+      selectedCurrency == "Select CryptoCurrency") {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Please fill all the fields"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("Ok"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        });
+    return false;
+  } else {
+    if (double.parse(high) < double.parse(low)) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text("Low cannot be higher than High"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          });
+      return false;
+    }
+    return true;
   }
 }

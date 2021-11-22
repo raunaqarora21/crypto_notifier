@@ -1,6 +1,7 @@
 import 'package:crypto_notifier/logics/priceAlertLogic.dart';
-import 'package:crypto_notifier/screens/addPriceAlert.dart';
+import 'package:crypto_notifier/screens/mainApp/priceAlert/addPriceAlert.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 
 class PriceAlert extends StatefulWidget {
@@ -9,9 +10,17 @@ class PriceAlert extends StatefulWidget {
 }
 
 class _PriceAlertState extends State<PriceAlert> {
+  FlutterLocalNotificationsPlugin flip;
   @override
   void initState() {
     // TODO: implement initState
+
+    flip = FlutterLocalNotificationsPlugin();
+    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var IOS = new IOSInitializationSettings();
+
+    var settings = new InitializationSettings(android: android, iOS: IOS);
+    flip.initialize(settings);
     super.initState();
   }
 
@@ -46,10 +55,8 @@ class _PriceAlertState extends State<PriceAlert> {
             : ListView.builder(
                 itemCount: priceAlertLogic.priceAlertTiles.length,
                 itemBuilder: (context, index) {
-                  return PriceAlertTile(
-                    priceAlertLogic,
-                    priceAlertLogic.priceAlertTiles[index],
-                  );
+                  return PriceAlertTile(priceAlertLogic,
+                      priceAlertLogic.priceAlertTiles[index], context);
                 },
               ),
       );

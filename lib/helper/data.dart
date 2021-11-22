@@ -20,6 +20,7 @@ class Data {
         name: element["name"],
         priceUsd: element["priceUsd"],
         changePercent: element["changePercent24Hr"],
+        marketCapUsd: element["marketCapUsd"],
       );
 
       list.add(infoTile);

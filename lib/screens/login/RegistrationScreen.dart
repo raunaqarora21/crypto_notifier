@@ -1,12 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:crypto_notifier/screens/loginScreen.dart';
 
 import 'package:crypto_notifier/components/progressDialog.dart';
 import 'package:crypto_notifier/main.dart';
-
-import 'mainScreen.dart';
 
 class RegisterationScreen extends StatelessWidget {
   static const String idScreen = "register";
@@ -175,11 +172,7 @@ class RegisterationScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
-                          (route) => false);
+                      Navigator.pushNamed(context, 'LoginScreen');
                     },
                     child: Text(
                       "Already have an Account? Login Here",
@@ -229,14 +222,15 @@ class RegisterationScreen extends StatelessWidget {
       };
 
       print(userDataMap);
+
       usersRef.child(firebaseUser.uid).set(userDataMap);
       print('User Added to Database');
 
       displayToastMessage(
           "Congratulations, your account has been created.", context);
 
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => MainScreen()));
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'LoginScreen', (route) => false);
     } else {
       Navigator.pop(context);
       //error occured - display error msg

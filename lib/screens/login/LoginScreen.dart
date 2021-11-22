@@ -1,12 +1,11 @@
 import 'package:crypto_notifier/components/progressDialog.dart';
-import 'package:crypto_notifier/constants.dart';
-import 'package:crypto_notifier/helper/subScribed_coins.dart';
-import 'package:crypto_notifier/screens/RegistrationScreen.dart';
-import 'package:crypto_notifier/screens/mainScreen.dart';
+
+import 'package:crypto_notifier/screens/login/RegistrationScreen.dart';
+import 'package:crypto_notifier/screens/mainApp/allCryptoScreen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -174,8 +173,10 @@ class _LoginScreenState extends State<LoginScreen> {
         .user;
 
     if (firebaseUser != null) {
-      Navigator.push(
-          context, CupertinoPageRoute(builder: (context) => MainScreen()));
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => AllCryptoScreen()),
+          (route) => false);
       displayToastMessage("you are logged-in now.", context);
     } else {
       Navigator.pop(context);

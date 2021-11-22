@@ -2,8 +2,9 @@ import 'dart:developer';
 
 import 'package:crypto_notifier/helper/data.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'allCryptoScreen.dart';
+import '../allCryptoScreen.dart';
 
 class ConvertPage extends StatefulWidget {
   final String price;
@@ -233,7 +234,12 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             ),
             CircleAvatar(
               radius: 13,
-              child: Image.asset("images/$id.png"),
+              child: Image.asset(
+                "images/$id.png",
+                errorBuilder: (context, e, stackTrace) {
+                  return Icon(FontAwesomeIcons.coins);
+                },
+              ),
             ),
             SizedBox(
               width: 10,
@@ -307,7 +313,11 @@ class _DropDownWidgetState2 extends State<DropDownWidget2> {
                       leading: CircleAvatar(
                         radius: 13,
                         child: Image.asset(
-                            "images/${widget.currencies[index].id}.png"),
+                          "images/${widget.currencies[index].id}.png",
+                          errorBuilder: (context, e, stackTrace) {
+                            return Icon(FontAwesomeIcons.coins);
+                          },
+                        ),
                       ),
                       title: Container(
                         child: Row(
@@ -359,7 +369,12 @@ class _DropDownWidgetState2 extends State<DropDownWidget2> {
             ),
             CircleAvatar(
               radius: 13,
-              child: Image.asset("images/$id.png"),
+              child: Image.asset(
+                "images/$id.png",
+                errorBuilder: (context, e, stackTrace) {
+                  return Icon(FontAwesomeIcons.coins);
+                },
+              ),
             ),
             SizedBox(
               width: 10,
