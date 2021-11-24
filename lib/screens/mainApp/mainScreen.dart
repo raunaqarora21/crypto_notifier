@@ -46,6 +46,9 @@ class _MainScreenState extends State<MainScreen> {
                               return subsribeTile(
                                   appData.subList[index], appData);
                             }),
+                        Divider(
+                          color: Colors.white,
+                        ),
                         ListView.builder(
                           shrinkWrap: true,
                           itemCount: appData.articles.length,
@@ -124,7 +127,7 @@ Widget subsribeTile(String name, AppData appData) {
       color: Color(0xFF29313C),
       borderRadius: BorderRadius.circular(10.0),
     ),
-    padding: EdgeInsets.all(20.0),
+    padding: EdgeInsets.all(15.0),
     margin: EdgeInsets.all(10.0),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,8 +153,8 @@ Widget subsribeTile(String name, AppData appData) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
-                        style: TextStyle(color: Colors.grey, fontSize: 10.0),
+                        name[0].toUpperCase() + name.substring(1),
+                        style: TextStyle(color: Colors.grey, fontSize: 13.0),
                       ),
                     ],
                   ),

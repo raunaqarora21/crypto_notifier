@@ -31,6 +31,7 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
   User user;
   bool _loading;
   bool _priceAsc = false;
+  bool _percAsc = false;
   String _sortBy = 'Sort By';
   String get sortBy => _sortBy;
   String name;
@@ -121,14 +122,14 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
                 );
               },
             ),
-            ListTile(
-              title: Text('Settings'),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text('About'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   title: Text('Settings'),
+            //   onTap: () {},
+            // ),
+            // ListTile(
+            //   title: Text('About'),
+            //   onTap: () {},
+            // ),
             ListTile(
               title: Text('Contact Us'),
               onTap: () async {
@@ -354,6 +355,72 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
                                                 },
                                               ),
                                             ),
+                                            Container(
+                                              color: Color(0xFF1F2630),
+                                              child: CupertinoActionSheetAction(
+                                                child: Container(
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text("24H Change",
+                                                          style: TextStyle(
+                                                              color: sortBy ==
+                                                                      "24H Change"
+                                                                  ? Colors.amber
+                                                                  : Color(
+                                                                      0xFF727983),
+                                                              fontSize: 16)),
+                                                      Icon(Icons.arrow_downward,
+                                                          color: (sortBy ==
+                                                                      "24H Change" &&
+                                                                  _percAsc ==
+                                                                      true)
+                                                              ? Colors.amber
+                                                              : Color(
+                                                                  0xFF727983),
+                                                          size: 16),
+                                                      Icon(Icons.arrow_upward,
+                                                          color: (sortBy ==
+                                                                      "24H Change" &&
+                                                                  _percAsc ==
+                                                                      false)
+                                                              ? Colors.amber
+                                                              : Color(
+                                                                  0xFF727983),
+                                                          size: 16),
+                                                    ],
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _percAsc
+                                                        ? coinInfo.sort((a,
+                                                                b) =>
+                                                            double.parse(a.changePercent)
+                                                                .toInt() -
+                                                            double.parse(b
+                                                                    .changePercent)
+                                                                .toInt())
+                                                        : coinInfo.sort((a,
+                                                                b) =>
+                                                            double.parse(b
+                                                                    .changePercent)
+                                                                .toInt() -
+                                                            double.parse(
+                                                                    a.changePercent)
+                                                                .toInt());
+                                                    _percAsc = !_percAsc;
+                                                    sortBy = "24H Change";
+                                                  });
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                            ),
                                           ],
                                           cancelButton: Container(
                                             color: Color(0xFF1F2630),
@@ -386,8 +453,10 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
                                       ),
                                       sortBy == "Sort By"
                                           ? Container()
-                                          : sortBy == "Price" &&
-                                                  _priceAsc == false
+                                          : ((sortBy == "Price" &&
+                                                      _priceAsc == false) ||
+                                                  (sortBy == "24H Change" &&
+                                                      _percAsc == false))
                                               ? Icon(
                                                   Icons.arrow_upward,
                                                   color: Colors.white,
@@ -430,7 +499,7 @@ class _AllCryptoScreenState extends State<AllCryptoScreen> {
     scheme: 'mailto',
     path: 'contact@cryptonotifier.com',
     query: encodeQueryParameters(
-        <String, String>{'subject': 'Example Subject & Symbols are allowed!'}),
+        <String, String>{'subject': 'Feedback related to App'}),
   );
 }
 
